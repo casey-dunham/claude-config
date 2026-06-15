@@ -87,16 +87,19 @@ Ask: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
 
 ## 6. Working with Claude Code
 
+<!-- Updated 2026-06-15: Plan Mode and Explore subagent pattern from community best practices -->
 ### Context
 - `/clear` between unrelated tasks — contaminated context causes subtle bugs.
 - If I've corrected you twice on the same issue, `/clear` and write a better prompt. Never correct three times in one session.
 - At 70% context: finish the current task. At 85%: compaction is imminent.
+- Use /plan (Shift+Tab) for any task touching 3+ files — Claude explores, plans, then waits for approval before editing anything.
 
 ### Subagents
 - **Code review**: always in a fresh session — zero attachment to code it wrote.
 - **Security audit**: `@security-reviewer` agent, dedicated session, read-only tools.
 - **Research**: background agent so it doesn't consume main context.
 - **Parallel features**: worktrees + separate sessions, never the same branch.
+- **Explore**: read-only subagent (Glob, Grep, Read) to map the codebase before coding — prevents failed explorations from polluting the main context.
 
 ### Before Declaring Done
 - [ ] Code matches existing patterns in this codebase?
